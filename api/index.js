@@ -1,11 +1,18 @@
 // Vercel serverless function handler for the travel blog API
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Properly configured for Supabase PostgreSQL database
 
 import express from 'express';
 import session from 'express-session';
 import { registerRoutes } from '../server/routes.js';
+=======
+import express from 'express';
+import session from 'express-session';
+import pkg from 'pg';
+const { Pool } = pkg;
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
 =======
 import express from 'express';
 import session from 'express-session';
@@ -40,11 +47,14 @@ app.use(session({
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Initialize routes using the same system as development
 (async () => {
   try {
     await registerRoutes(app);
 =======
+=======
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
 =======
 >>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
 // Database setup for Supabase
@@ -190,7 +200,10 @@ const ensureDatabase = async () => {
   if (!databaseSetup && process.env.DATABASE_URL) {
     await setupDatabase();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
   }
 };
 
@@ -254,11 +267,15 @@ app.get('/api/blog-posts', async (req, res) => {
 =======
 // Featured blog posts
 app.get('/api/blog-posts/featured', async (req, res) => {
+<<<<<<< HEAD
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
+=======
 >>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
   try {
     await ensureDatabase();
     
     if (pool) {
+<<<<<<< HEAD
 <<<<<<< HEAD
       const result = await pool.query('SELECT * FROM blog_posts ORDER BY created_at DESC');
       const posts = result.rows.map(row => ({
@@ -303,6 +320,8 @@ app.get('/api/blog-posts/featured', async (req, res) => {
     await ensureDatabase();
     
     if (pool) {
+=======
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
 =======
 >>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
       const result = await pool.query('SELECT * FROM blog_posts WHERE is_featured = true ORDER BY created_at DESC LIMIT 3');
