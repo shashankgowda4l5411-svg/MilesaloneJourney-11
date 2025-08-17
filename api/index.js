@@ -1,10 +1,17 @@
 // Vercel serverless function handler for the travel blog API
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Properly configured for Supabase PostgreSQL database
 
 import express from 'express';
 import session from 'express-session';
 import { registerRoutes } from '../server/routes.js';
+=======
+import express from 'express';
+import session from 'express-session';
+import pkg from 'pg';
+const { Pool } = pkg;
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
 =======
 import express from 'express';
 import session from 'express-session';
@@ -32,11 +39,14 @@ app.use(session({
 }));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Initialize routes using the same system as development
 (async () => {
   try {
     await registerRoutes(app);
 =======
+=======
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
 // Database setup for Supabase
 let pool;
 let databaseSetup = false;
@@ -179,6 +189,8 @@ const setupDatabase = async () => {
 const ensureDatabase = async () => {
   if (!databaseSetup && process.env.DATABASE_URL) {
     await setupDatabase();
+<<<<<<< HEAD
+=======
   }
 };
 
@@ -223,6 +235,60 @@ app.get('/api/blog-posts', async (req, res) => {
         }
       ]);
     }
+  } catch (error) {
+    console.error('Blog posts error:', error);
+    res.status(500).json({ error: error.message });
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
+  }
+};
+
+// Test route
+app.get('/api/test', async (req, res) => {
+  await ensureDatabase();
+  res.json({ message: 'Travel Blog API is working!', timestamp: new Date().toISOString() });
+});
+
+<<<<<<< HEAD
+// Blog posts API
+app.get('/api/blog-posts', async (req, res) => {
+=======
+// Featured blog posts
+app.get('/api/blog-posts/featured', async (req, res) => {
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
+  try {
+    await ensureDatabase();
+    
+    if (pool) {
+<<<<<<< HEAD
+      const result = await pool.query('SELECT * FROM blog_posts ORDER BY created_at DESC');
+      const posts = result.rows.map(row => ({
+        id: row.id.toString(),
+        title: row.title,
+        slug: row.slug,
+        excerpt: row.excerpt,
+        featuredImage: row.featured_image,
+        category: row.category,
+        tags: row.tags || [],
+        readingTime: row.reading_time,
+        isFeatured: row.is_featured
+      }));
+      res.json(posts);
+    } else {
+      // Fallback sample data
+      res.json([
+        {
+          id: "1",
+          title: "Delhi Streets: A Culinary Adventure",
+          slug: "delhi-streets-culinary-adventure",
+          excerpt: "Exploring the vibrant street food scene of Old Delhi",
+          featuredImage: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800",
+          category: "food",
+          tags: ["delhi", "street-food", "culture"],
+          readingTime: 5,
+          isFeatured: true
+        }
+      ]);
+    }
 >>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
   } catch (error) {
     console.error('Error setting up routes:', error);
@@ -237,6 +303,8 @@ app.get('/api/blog-posts/featured', async (req, res) => {
     await ensureDatabase();
     
     if (pool) {
+=======
+>>>>>>> parent of fc6877b (Remove database dependency to resolve authentication errors)
       const result = await pool.query('SELECT * FROM blog_posts WHERE is_featured = true ORDER BY created_at DESC LIMIT 3');
       const posts = result.rows.map(row => ({
         id: row.id.toString(),
